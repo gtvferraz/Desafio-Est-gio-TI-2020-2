@@ -85,7 +85,12 @@ const Dashboard = () => {
   function updateCEP(valor) {
     updateNewInfo('cep', valor);
 
-    if(valor.length == 8) {
+    if(valor.length == 9) { //MÁSCARA DE CEP
+      valor = valor.substring(0,8);
+      let aux = {...currentInfo};
+      aux.cep = valor;
+      setCurrentInfo(aux);
+    } else if(valor.length == 8) {
       const url = "https://brasilapi.com.br/api/cep/v1/" + valor; //BRASILAPI UTILIZADA PARA CONSULTAR O CEP
       fetch(url).then((response) => {
         if(!response.ok) throw new Error(response.status);
