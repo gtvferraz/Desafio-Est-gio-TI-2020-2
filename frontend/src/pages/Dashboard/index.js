@@ -83,7 +83,6 @@ const Dashboard = () => {
 
   //FUNÇÃO CHAMADA NO EVENTO ONCHANGE DO CAMPO CEP
   function updateCEP(valor) {
-    console.log("ffd");
     updateNewInfo('cep', valor);
 
     if(valor.length == 8) {
@@ -106,7 +105,7 @@ const Dashboard = () => {
           setCepDisabled(true);
         },
         (error) => {
-          console.log("CEP inexistente");
+          alert("CEP inexistente");
         }
       )
     } else {
