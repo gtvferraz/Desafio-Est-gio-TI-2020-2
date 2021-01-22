@@ -225,7 +225,11 @@ const Dashboard = () => {
         const response = await api.delete(`/alunos/${data_aluno.id}`);
         let aux = [...alunos];
         let index;
-        index = aux.indexOf({id: response.data.id});
+        for(var i=0; i<aux.length; i++)
+          if(aux[i].id == response.data.id) {
+            index = i;
+            break;
+          }
         aux.splice(index,1);
         setAlunos(aux);
       } catch(error) {
@@ -243,6 +247,10 @@ const Dashboard = () => {
       } catch(error) {
         alert("Curso já adicionado para este aluno");
       }
+    }
+    if(newCurso == undefined) {
+      alert("Selecione um curso");
+      return;
     }
     associateCurso();
     setModalAlunoCurso(false);
@@ -276,6 +284,7 @@ const Dashboard = () => {
   function open_aluno_curso(data_aluno) {
     setCurrentInfo(data_aluno);
     setModalAlunoCurso(true);
+    setNewCurso(undefined);
 
     async function fetchData() {
       try{
