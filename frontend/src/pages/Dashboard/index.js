@@ -120,7 +120,9 @@ const Dashboard = () => {
     updateNewInfo('estado', valor);
     if(valor.length == 3) { //MÁSCARA DE ESTADO
       valor = valor.substring(0,2);
-      document.getElementById("estado").value = valor;
+      let aux = {...currentInfo};
+      aux.estado = valor;
+      setCurrentInfo(aux);
     }
   }
 
@@ -177,23 +179,6 @@ const Dashboard = () => {
     }
 
     async function saveData() {
-      if(document.getElementById('nome').value == '') {
-        alert("O campo nome é obrigatório");
-        return;
-      } else if(document.getElementById('email').value == '') {
-        alert("O campo email é obrigatório");
-        return;
-      } else if(document.getElementById('cep').value == '') {
-        alert("O campo cep é obrigatório");
-        return;
-      } else if(document.getElementById('estado').value == '') {
-        alert("O campo estado é obrigatório");
-        return;
-      } else if(document.getElementById('cidade').value == '') {
-        alert("O campo cidade é obrigatório");
-        return;
-      }
-
       try{
         const response = await api.post('/alunos', currentInfo);
         let aux = [...alunos];
@@ -204,6 +189,23 @@ const Dashboard = () => {
       }
 
       setModalInfos(false);
+    }
+
+    if(currentInfo.nome == '') {
+      alert("O campo nome é obrigatório");
+      return;
+    } else if(currentInfo.email == '') {
+      alert("O campo email é obrigatório");
+      return;
+    } else if(currentInfo.cep == '') {
+      alert("O campo cep é obrigatório");
+      return;
+    } else if(currentInfo.estado == '') {
+      alert("O campo estado é obrigatório");
+      return;
+    } else if(currentInfo.cidade == '') {
+      alert("O campo cidade é obrigatório");
+      return;
     }
 
     if(modalFunction == 0)
